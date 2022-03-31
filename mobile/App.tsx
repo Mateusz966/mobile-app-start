@@ -1,13 +1,4 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
 import React, {FC} from 'react';
-import type {Node} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -30,7 +21,7 @@ interface Props {
   title: string;
 }
 
-const Section: FC<Props> = ({children, title}): Node => {
+const Section: FC<Props> = ({children, title}) => {
   const isDarkMode = useColorScheme() === 'dark';
   return (
     <View style={styles.sectionContainer}>
@@ -56,7 +47,7 @@ const Section: FC<Props> = ({children, title}): Node => {
   );
 };
 
-const App: () => Node = () => {
+const App: FC = () => {
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {

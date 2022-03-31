@@ -1,0 +1,15 @@
+services:
+  db:
+    image: postgres
+    container_name: coin-keeper
+    ports:
+      - "3333:5432"
+    environment:
+      - POSTGRES_DB=coin-keeper
+      - POSTGRES_USER=coin-keeper
+      - POSTGRES_PASSWORD=coin-keeper
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+volumes:
+  db-data:
