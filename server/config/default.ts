@@ -4,5 +4,10 @@ export default () => ({
     user: '',
     password: '',
     type: '',
+    port: '',
+  },
+  jwt: {
+    secret: '',
+    expiresIn: '',
   },
 });

@@ -4,17 +4,22 @@ import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { DatabaseModule } from './database/database.module';
 import { UserModule } from './user/user.module';
-import config from '../config/default';
+import config from '../config/local';
 import { MikroORM } from '@mikro-orm/core';
 import { MikroOrmMiddleware } from '@mikro-orm/nestjs';
+import { AuthModule } from './auth/auth.module';
+
+console.log(config());
 
 @Module({
   imports: [
     ConfigModule.forRoot({
+      isGlobal: true,
       load: [config],
     }),
     DatabaseModule,
     UserModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
