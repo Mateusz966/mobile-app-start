@@ -1,7 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { UserRepository } from '../user/repository/user.repository';
 import { JwtService } from '@nestjs/jwt';
+import { Errors } from '../errors';
+import { LoginUserDto } from '../user/dto/login-user.dto';
 
 @Injectable()
 export class AuthService {
@@ -16,11 +18,11 @@ export class AuthService {
       const { password, ...result } = user;
       return result;
     }
-    return null;
+    throw new HttpException(Errors.WRONG_CREDENTIALS, HttpStatus.BAD_REQUEST);
   }
 
-  async login({ email, id }: any) {
-    const payload = { email, sub: id };
+  async login({ email, id, isActive }: LoginUserDto) {
+    const payload = { email, id, isActive };
     return {
       accessToken: this.jwtService.sign(payload),
     };
