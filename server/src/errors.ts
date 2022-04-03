@@ -1,3 +1,4 @@
 export enum Errors {
   EMAIL_EXIST = 'EMAIL_EXIST',
+  WRONG_CREDENTIALS = 'WRONG_CREDENTIALS',
 }
