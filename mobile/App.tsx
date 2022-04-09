@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, { FC } from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -8,20 +8,30 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
-
+import { NavigationContainer } from '@react-navigation/native';
 import {
   Colors,
-  DebugInstructions,
   Header,
   LearnMoreLinks,
-  ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 interface Props {
   title: string;
 }
 
-const Section: FC<Props> = ({children, title}) => {
+const Stack = createNativeStackNavigator();
+
+
+const HomeScreen = () => {
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text>Home Screen XD</Text>
+    </View>
+  );
+};
+
+const Section: FC<Props> = ({ children, title }) => {
   const isDarkMode = useColorScheme() === 'dark';
   return (
     <View style={styles.sectionContainer}>
@@ -57,28 +67,20 @@ const App: FC = () => {
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+
       <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
+        contentInsetAdjustmentBehavior='automatic'
         style={backgroundStyle}>
         <Header />
         <View
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.js</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
+          <NavigationContainer>
+            <Stack.Navigator>
+              <Stack.Screen name='Home' component={HomeScreen} />
+            </Stack.Navigator>
+          </NavigationContainer>
         </View>
       </ScrollView>
     </SafeAreaView>
