@@ -4,6 +4,8 @@ import {StatusBar, Text, useColorScheme, View} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {Provider as PaperProvider} from 'react-native-paper';
+import {QueryClient, QueryClientProvider} from 'react-query';
+import {navigationRef} from './config/RootNavigation';
 
 const HomeScreen: FC = () => {
   return (
@@ -28,25 +30,27 @@ const DetailsScreen = () => {
 };
 
 const Stack = createNativeStackNavigator();
+const queryClient = new QueryClient();
 
-// eslint-disable-next-line react/function-component-definition
 const App: FC = () => {
   const isDarkMode = useColorScheme() === 'dark';
 
   return (
-    <PaperProvider>
-      <NavigationContainer>
-        <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-        <Stack.Navigator initialRouteName="Home">
-          <Stack.Screen
-            name="Home"
-            component={HomeScreen}
-            options={{title: 'Test'}}
-          />
-          <Stack.Screen name="Details" component={DetailsScreen} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </PaperProvider>
+    <QueryClientProvider client={queryClient}>
+      <PaperProvider>
+        <NavigationContainer ref={navigationRef}>
+          <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+          <Stack.Navigator initialRouteName="Home">
+            <Stack.Screen
+              name="Home"
+              component={HomeScreen}
+              options={{title: 'Test'}}
+            />
+            <Stack.Screen name="Details" component={DetailsScreen} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </PaperProvider>
+    </QueryClientProvider>
   );
 };
 
